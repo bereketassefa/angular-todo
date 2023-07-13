@@ -9,6 +9,7 @@ export class TodoCardComponent {
   @Input() todo: string = ""
   @Input() tag: string = ""
   @Input() date: (Date | any)
+  
   constructor(){
     console.log(this.todo , this.date , this.tag)
   }

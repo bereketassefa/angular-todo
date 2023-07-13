@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Todo } from 'src/app/Models/Todo.model';
-import { TodoService } from 'src/app/service/todo.service';
+import { TodoService } from 'src/app/Service/todo.service';
+
 
 @Component({
   selector: 'app-home',
@@ -12,28 +13,45 @@ export class HomeComponent implements OnInit {
   date = new Date()
   todoString = ""
   tagString = ""
-  todos: Todo[] = [{
-    todo: "df",
-    tag: "school",
-    date: new Date()
-  }]
+  activeTag = ""
+  tags: string[] = ["work"  , "school" , "family" , "personal"]
+  todosLoaded: Todo[] = []
+  todos: Todo[] = []
 
 
-  constructor(private todo: TodoService , private router: Router) { }
+  constructor(private todo: TodoService , private router: Router , private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.updatetodo()
+    this.todos = this.todo.getTodo()
+    this.todosLoaded = this.todo.getTodo()
+    this.route.queryParamMap.subscribe((newtag: ParamMap) => {
+      this.activeTag = newtag.get('tag') as string
+      this.todos = this.todosLoaded.filter(each => {
+        
+        return this.activeTag === 'all' ? true : each.tag === this.activeTag
+      })
+      console.log(this.todos)
+
+    })
+
 
   }
-
+  changeTag(tag: string){
+    this.router.navigate([  ] , {  queryParams: {
+      tag: tag
+    }})
+    console.log(tag)
+  }
   updatetodo(){
     this.todos = this.todo.getTodo()
+    this.todosLoaded = this.todo.getTodo()
   }
 
   addTodo(){
     
     this.todo.addTodo(this.todoString  , this.tagString)
-    this.updatetodo()
+    
+    this.todosLoaded = this.todo.getTodo()
   }
   logout(){
     localStorage.clear()

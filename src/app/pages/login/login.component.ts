@@ -23,7 +23,9 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.emailValue , this.passwordValue).subscribe((res)=>{
       if(res === true){
         localStorage.setItem("logged" , "true")
-        this.router.navigate(['home'])
+        this.router.navigate(['home' ] , {queryParams: {
+          tag: "all"
+        }})
       }else{
         this.errorMessage = "please enter valid email or password"
       }

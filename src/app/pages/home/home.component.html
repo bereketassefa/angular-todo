@@ -78,11 +78,11 @@
           class="ml-2 border py-2 border-black w-full w-auto rounded-lg border-gray-300 text-black sm:text-sm"
         >
           <option value="" selected disabled>Pick a choice</option>
-
-          <option value="work">Work</option>
+          <option *ngFor="let x of tags" [value]="x">{{ x }}</option>
+          <!-- <option value="work">Work</option>
           <option value="school">School</option>
           <option value="family">Family</option>
-          <option value="personal">Personal</option>
+          <option value="personal">Personal</option> -->
         </select>
       </div>
 
@@ -96,11 +96,30 @@
     </div>
   </form>
 </div>
+
 <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+  <div class="tags">
+    <span
+      class="cursor-pointer px-2 py-1 mx-1 h-8 rounded-md border border-indigo-700 text-black"
+      (click)="changeTag('all')"
+      [class.active]="'all' === activeTag"
+      >All</span
+    >
+    <span
+      *ngFor="let x of tags"
+      class="cursor-pointer px-2 py-1 mx-1 h-8 rounded-md border border-indigo-700 text-black"
+      (click)="changeTag(x)"
+      [class.active]="x === activeTag"
+      >#{{ x }}</span
+    >
+  </div>
   <app-todo-card
     *ngFor="let x of this.todos"
     [todo]="x.todo"
     [tag]="x.tag"
     [date]="x.date"
   ></app-todo-card>
+  <p class="w-full text-center mt-3" *ngIf="todos.length === 0">
+    There is not todos under #{{ activeTag }}
+  </p>
 </div>

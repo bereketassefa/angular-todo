@@ -8,10 +8,23 @@ export class TodoService {
   todos : Todo[] = [
     {
       todo: "finish assignment",
-      tag: "school",
+      tag: "work",
       date: new Date()
       
-    }
+    },
+    {
+      todo: "clearn house",
+      tag: "personal",
+      date: new Date()
+      
+    },
+    {
+      todo: "clearn house",
+      tag: "personal",
+      date: new Date()
+      
+      
+    },
   ]
 
   constructor() { }
