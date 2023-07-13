@@ -19,7 +19,7 @@ export class TodoService {
       
     },
     {
-      todo: "clearn house",
+      todo: "read",
       tag: "personal",
       date: new Date()
       
@@ -41,5 +41,11 @@ export class TodoService {
     }
     console.log(newtodo)
     this.todos.push(newtodo)
+  }
+  removeTodo(todo: Todo){
+    this.todos = this.todos.filter(each => {
+      return each !== todo
+    })
+
   }
 }

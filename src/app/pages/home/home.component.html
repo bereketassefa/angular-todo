@@ -114,6 +114,7 @@
     >
   </div>
   <app-todo-card
+    (delete)="remove(x)"
     *ngFor="let x of this.todos"
     [todo]="x.todo"
     [tag]="x.tag"

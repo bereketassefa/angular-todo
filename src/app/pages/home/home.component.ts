@@ -26,39 +26,44 @@ export class HomeComponent implements OnInit {
     this.todosLoaded = this.todo.getTodo()
     this.route.queryParamMap.subscribe((newtag: ParamMap) => {
       this.activeTag = newtag.get('tag') as string
-      this.todos = this.todosLoaded.filter(each => {
-        
-        return this.activeTag === 'all' ? true : each.tag === this.activeTag
-      })
-      console.log(this.todos)
-
+      this.reload()
     })
-
-
   }
   changeTag(tag: string){
     this.router.navigate([  ] , {  queryParams: {
       tag: tag
     }})
-    console.log(tag)
   }
-  updatetodo(){
-    this.todos = this.todo.getTodo()
-    this.todosLoaded = this.todo.getTodo()
-  }
+ 
 
   addTodo(){
-    
     this.todo.addTodo(this.todoString  , this.tagString)
-    
     this.todosLoaded = this.todo.getTodo()
+    if(this.activeTag === this.tagString){
+      this.todos.push({
+        todo: this.todoString,
+        tag:this.tagString,
+        date: new Date()
+      })
+    }
   }
+
+  reload(){
+    this.todos = this.todosLoaded.filter(each => {
+      return this.activeTag === 'all' ? true : each.tag === this.activeTag
+    })
+  }
+
+
   logout(){
     localStorage.clear()
     this.router.navigate(['/'])
   }
 
-  log(val: any){
-    console.log("clicked")
+  remove(x: Todo){
+    console.log(x)
+    this.todo.removeTodo(x)
+    this.todosLoaded = this.todo.getTodo()
+    this.reload()
   }
 }

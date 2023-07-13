@@ -1,8 +1,18 @@
 <div class="w-full h-auto flex flex-row justify-between px-3 my-3">
-  <div>
-    <h4 class="font-medium text-xl">{{ this.todo }}</h4>
-
-    <h3>{{ this.date | date : "shortDate" }}</h3>
+  <div class="flex flex-row">
+    <label for="MarketingAccept" class="flex gap-4 mr-2 mt-2">
+      <input
+        (change)="emi()"
+        type="checkbox"
+        id="MarketingAccept"
+        name="marketing_accept"
+        class="h-5 w-5 rounded-md border-gray-200 bg-white shadow-sm"
+      />
+    </label>
+    <div>
+      <h4 class="font-medium text-xl">{{ this.todo }}</h4>
+      <h3>{{ this.date | date : "shortDate" }}</h3>
+    </div>
   </div>
   <span
     class="px-2 h-8 rounded-md border border-indigo-700 text-black flex items-center"
