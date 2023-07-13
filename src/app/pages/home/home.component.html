@@ -1,0 +1,106 @@
+<header>
+  <div class="mx-auto max-w-screen-xl px-4 pt-8 pb-4 sm:px-6 sm:py-12 lg:px-8">
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <div class="text-center sm:text-left">
+        <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">
+          Welcome Back!!
+        </h1>
+
+        <p class="mt-1.5 text-sm text-gray-500">Let's plan the day! 🎉</p>
+      </div>
+
+      <div class="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
+        <!-- <button
+          class="inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 px-5 py-3 text-gray-500 transition hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:ring"
+          type="button"
+          appBgcolor
+        >
+          <span class="text-sm font-medium"> View Website </span>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+            />
+          </svg>
+        </button> -->
+
+        <button
+          class="block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
+          type="button"
+          (click)="logout()"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+<!--
+  Heads up! 👋
+
+  Plugins:
+    - @tailwindcss/forms
+-->
+
+<div class="mx-auto max-w-screen-xl px-4 py-4 sm:px-6 lg:px-8">
+  <form #todoData="ngForm" (ngSubmit)="addTodo(); todoData.resetForm()">
+    <div class="relative flex flex-row">
+      <label for="Search" class="sr-only"> Search </label>
+
+      <input
+        required
+        #todo="ngModel"
+        [class.error]="todo.invalid && todo.touched"
+        type="text"
+        name="todo"
+        id="todo"
+        placeholder="Add todo..."
+        class="px-2 w-full rounded-md border border-black py-2.5 pe-10 shadow-sm sm:text-sm"
+        [(ngModel)]="todoString"
+      />
+      <div>
+        <select
+          name="rag"
+          id="tag"
+          required
+          #tag="ngModel"
+          [class.error]="tag.invalid && tag.touched"
+          [(ngModel)]="tagString"
+          class="ml-2 border py-2 border-black w-full w-auto rounded-lg border-gray-300 text-black sm:text-sm"
+        >
+          <option value="" selected disabled>Pick a choice</option>
+
+          <option value="work">Work</option>
+          <option value="school">School</option>
+          <option value="family">Family</option>
+          <option value="personal">Personal</option>
+        </select>
+      </div>
+
+      <button
+        type="submit"
+        class="ml-2 px-5 py-1 bg-indigo-600 text-white rounded"
+        [disabled]="!todoData.valid"
+      >
+        Add
+      </button>
+    </div>
+  </form>
+</div>
+<div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+  <app-todo-card
+    *ngFor="let x of this.todos"
+    [todo]="x.todo"
+    [tag]="x.tag"
+    [date]="x.date"
+  ></app-todo-card>
+</div>

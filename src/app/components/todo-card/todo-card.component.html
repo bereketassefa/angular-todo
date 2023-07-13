@@ -1,0 +1,11 @@
+<div class="w-full h-auto flex flex-row justify-between px-3 my-3">
+  <div>
+    <h4 class="font-medium text-xl">{{ this.todo }}</h4>
+
+    <h3>{{ this.date | date : "shortDate" }}</h3>
+  </div>
+  <span
+    class="px-2 h-8 rounded-md border border-indigo-700 text-black flex items-center"
+    >#{{ this.tag }}</span
+  >
+</div>
